@@ -7,6 +7,7 @@
 (include "./bar/modules/audio.yuck")
 (include "./bar/modules/network.yuck")
 (include "./bar/modules/bluetooth.yuck")
+(include "./bar/modules/weather.yuck")
 (include "./bar/modules/clock.yuck")
 (include "./bar/modules/notifications.yuck")
 
@@ -60,5 +61,6 @@
             :space-evenly false
          (network)
          (bluetooth)
+         (weather)
          (clock)
          (notifications))))

@@ -1,5 +1,7 @@
-(defpoll wifi :interval "5s" "~/.config/eww/bar/scripts/wifi.sh")
+(defpoll network :interval "2s" "~/.config/eww/bar/scripts/network.sh")
 
 (defwidget network []
-  (box :class "module network"
-    (label :text " ${wifi}")))
+  (box :class "module network" :spacing 4
+    (label :text "${network.icon}" :class "network-icon")
+    (label :text "↓ ${network.down}")
+    (label :text "↑ ${network.up}")))

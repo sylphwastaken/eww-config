@@ -1,11 +1,11 @@
 ;; Variables for system monitor
-(defpoll cpu_processes :interval "2s" 
+(defpoll cpu_processes :interval "2s" :initial "[]"
   "~/.config/eww/bar/scripts/top_cpu.sh")
 
-(defpoll gpu_processes :interval "2s" 
+(defpoll gpu_processes :interval "2s" :initial "[]"
   "~/.config/eww/bar/scripts/top_gpu.sh")
 
-(defpoll ram_processes :interval "2s" 
+(defpoll ram_processes :interval "2s" :initial "[]"
   "~/.config/eww/bar/scripts/top_ram.sh")
 
 (defvar expanded_cpu "")
@@ -18,17 +18,17 @@
   :geometry (geometry
     :anchor "bottom left"
     :x "12px"
-    :y "50px"
+    :y "0px"
     :width "550px"
     :height "500px")
-  :stacking "overlay"
-  :windowtype "dialog"
+  :stacking "fg"
+  :windowtype "normal"
   (box :class "system-monitor" :orientation "v" :space-evenly false
     (box :class "monitor-header" :spacing 8
       (label :text "󰘚 CPU Usage" :class "monitor-title" :hexpand true :xalign 0)
       (button :class "monitor-close" :onclick "eww close cpu-monitor" "✕"))
     (scroll :vscroll true :height 440
-      (box :orientation "v" :spacing 4
+      (box :orientation "v" :spacing 0
         (for proc in cpu_processes
           (cpu-process-group :proc proc))))))
 
@@ -38,17 +38,17 @@
   :geometry (geometry
     :anchor "bottom left"
     :x "12px"
-    :y "50px"
+    :y "0px"
     :width "550px"
     :height "500px")
-  :stacking "overlay"
-  :windowtype "dialog"
+  :stacking "fg"
+  :windowtype "normal"
   (box :class "system-monitor" :orientation "v" :space-evenly false
     (box :class "monitor-header" :spacing 8
       (label :text "󰢮 GPU Usage" :class "monitor-title" :hexpand true :xalign 0)
       (button :class "monitor-close" :onclick "eww close gpu-monitor" "✕"))
     (scroll :vscroll true :height 440
-      (box :orientation "v" :spacing 4
+      (box :orientation "v" :spacing 0
         (for proc in gpu_processes
           (gpu-process-group :proc proc))))))
 
@@ -58,23 +58,23 @@
   :geometry (geometry
     :anchor "bottom left"
     :x "12px"
-    :y "50px"
+    :y "0px"
     :width "550px"
     :height "500px")
-  :stacking "overlay"
-  :windowtype "dialog"
+  :stacking "fg"
+  :windowtype "normal"
   (box :class "system-monitor" :orientation "v" :space-evenly false
     (box :class "monitor-header" :spacing 8
       (label :text "󰍛 Memory Usage" :class "monitor-title" :hexpand true :xalign 0)
       (button :class "monitor-close" :onclick "eww close ram-monitor" "✕"))
     (scroll :vscroll true :height 440
-      (box :orientation "v" :spacing 4
+      (box :orientation "v" :spacing 0
         (for proc in ram_processes
           (ram-process-group :proc proc))))))
 
 ;; CPU Process group widget
 (defwidget cpu-process-group [proc]
-  (box :orientation "v" :spacing 2
+  (box :orientation "v" :spacing 0
     (eventbox
       :onclick "eww update expanded_cpu='${expanded_cpu == proc.name ? '' : proc.name}'"
       :onrightclick "~/.config/eww/bar/scripts/confirm_kill.sh '${proc.name}' '${proc.pids}' &"
@@ -87,7 +87,7 @@
     (revealer
       :reveal {expanded_cpu == proc.name && proc.count > 1}
       :transition "slidedown"
-      (box :orientation "v" :spacing 2 :class "process-children"
+      (box :orientation "v" :spacing 0 :class "process-children"
         (for child in {proc.children ?: []}
           (eventbox
             :onrightclick "~/.config/eww/bar/scripts/confirm_kill.sh 'PID ${child.pid}' '${child.pid}' &"
@@ -98,7 +98,7 @@
 
 ;; GPU Process group widget
 (defwidget gpu-process-group [proc]
-  (box :orientation "v" :spacing 2
+  (box :orientation "v" :spacing 0
     (eventbox
       :onclick "eww update expanded_gpu='${expanded_gpu == proc.name ? '' : proc.name}'"
       :onrightclick "~/.config/eww/bar/scripts/confirm_kill.sh '${proc.name}' '${proc.pids}' &"
@@ -111,7 +111,7 @@
     (revealer
       :reveal {expanded_gpu == proc.name && proc.count > 1}
       :transition "slidedown"
-      (box :orientation "v" :spacing 2 :class "process-children"
+      (box :orientation "v" :spacing 0 :class "process-children"
         (for child in {proc.children ?: []}
           (eventbox
             :onrightclick "~/.config/eww/bar/scripts/confirm_kill.sh 'PID ${child.pid}' '${child.pid}' &"
@@ -122,7 +122,7 @@
 
 ;; RAM Process group widget
 (defwidget ram-process-group [proc]
-  (box :orientation "v" :spacing 2
+  (box :orientation "v" :spacing 0
     (eventbox
       :onclick "eww update expanded_ram='${expanded_ram == proc.name ? '' : proc.name}'"
       :onrightclick "~/.config/eww/bar/scripts/confirm_kill.sh '${proc.name}' '${proc.pids}' &"
@@ -135,7 +135,7 @@
     (revealer
       :reveal {expanded_ram == proc.name && proc.count > 1}
       :transition "slidedown"
-      (box :orientation "v" :spacing 2 :class "process-children"
+      (box :orientation "v" :spacing 0 :class "process-children"
         (for child in {proc.children ?: []}
           (eventbox
             :onrightclick "~/.config/eww/bar/scripts/confirm_kill.sh 'PID ${child.pid}' '${child.pid}' &"

@@ -4,7 +4,7 @@
   :geometry (geometry
     :anchor "bottom left"
     :x "12px"
-    :y "50px"
+    :y "0px"
     :width "550px"
     :height "300px")
   :stacking "overlay"
