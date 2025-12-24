@@ -1,0 +1,47 @@
+;; Power menu window
+(defwindow power-menu
+  :monitor 1
+  :geometry (geometry
+    :anchor "bottom left"
+    :x "12px"
+    :y "50px"
+    :width "550px"
+    :height "300px")
+  :stacking "overlay"
+  :windowtype "dialog"
+  (box :class "power-menu" :orientation "v" :space-evenly false
+    (box :class "power-header" :spacing 8
+      (label :text "Hello, ioan" :class "power-title" :hexpand true :xalign 0)
+      (button :class "power-close" :onclick "eww close power-menu" "✕"))
+    
+    (box :class "power-content" :spacing 12
+      ;; Left side - Power options
+      (box :class "power-left" :orientation "v" :spacing 4 :hexpand true
+        (label :text "When you're ready:" :class "power-subtitle" :xalign 0)
+        (button :class "power-btn logout" :onclick "hyprctl dispatch exit &" 
+          (box :spacing 12
+            (label :text "" :class "power-btn-icon")
+            (label :text "Log Out" :xalign 0)))
+        (button :class "power-btn shutdown" :onclick "systemctl poweroff &" 
+          (box :spacing 12
+            (label :text "" :class "power-btn-icon")
+            (label :text "Shut Down" :xalign 0)))
+        (button :class "power-btn reboot" :onclick "systemctl reboot &" 
+          (box :spacing 12
+            (label :text "" :class "power-btn-icon")
+            (label :text "Reboot" :xalign 0))))
+      
+      ;; Right side - Directory
+      (box :class "power-right" :orientation "v" :spacing 4 :hexpand true :valign "start"
+        (box :class "directory-list" :orientation "v" :spacing 2
+          (label :text "Directory" :class "directory-title" :xalign 0)
+          (button :class "directory-item" :onclick "dolphin ~/ &" 
+            (label :text "- Home" :xalign 0))
+          (button :class "directory-item" :onclick "dolphin ~/Downloads &" 
+            (label :text "- Downloads" :xalign 0))
+          (button :class "directory-item" :onclick "dolphin ~/.config &" 
+            (label :text "- .config" :xalign 0))
+          (button :class "directory-item" :onclick "dolphin ~/Documents &" 
+            (label :text "- Documents" :xalign 0))
+          (button :class "directory-item" :onclick "dolphin ~/Pictures &" 
+            (label :text "- Pictures" :xalign 0)))))))

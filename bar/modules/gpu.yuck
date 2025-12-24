@@ -1,0 +1,9 @@
+(defpoll gpu_percent :interval "2s" "~/.config/eww/bar/scripts/gpu_percent.sh")
+(defpoll gpu_speed :interval "2s" "~/.config/eww/bar/scripts/gpu_speed.sh")
+
+(defwidget gpu []
+  (eventbox
+    :onclick "~/.config/eww/bar/scripts/open_monitor.sh gpu"
+    :cursor "pointer"
+    (box :class "module gpu"
+      (label :text "󰢮 ${gpu_percent}% ${gpu_speed}"))))

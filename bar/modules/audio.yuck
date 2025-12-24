@@ -1,0 +1,13 @@
+(defpoll volume :interval "1s" "~/.config/eww/bar/scripts/volume.sh")
+(defpoll mic :interval "1s" "~/.config/eww/bar/scripts/mic.sh")
+(deflisten cava_bars :initial "▁▁▁▁▁▁▁▁▁▁▁▁" "~/.config/eww/bar/scripts/cava.sh")
+
+(defwidget audio []
+  (box :class "audio-container" :spacing 8 :halign "center"
+    (eventbox :onclick "~/.config/eww/bar/scripts/open_monitor.sh audio"
+              :cursor "pointer"
+      (box :class "module audio-levels" :spacing 8
+        (label :text "󰋋 ${volume}%")
+        (label :text "󰍬 ${mic}%")))
+    (box :class "module cava-box"
+      (label :text "${cava_bars}" :class "cava-text"))))

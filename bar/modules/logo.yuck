@@ -1,0 +1,6 @@
+(defwidget logo []
+  (eventbox
+    :onclick "~/.config/eww/bar/scripts/open_monitor.sh power"
+    :cursor "pointer"
+    (box :class "module logo"
+      (label :text "⮝"))))

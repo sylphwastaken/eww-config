@@ -1,0 +1,9 @@
+(defpoll cpu_percent :interval "2s" "~/.config/eww/bar/scripts/cpu_percent.sh")
+(defpoll cpu_speed :interval "2s" "~/.config/eww/bar/scripts/cpu_speed.sh")
+
+(defwidget cpu []
+  (eventbox
+    :onclick "~/.config/eww/bar/scripts/open_monitor.sh cpu"
+    :cursor "pointer"
+    (box :class "module cpu"
+      (label :text "󰘚 ${cpu_percent}% ${cpu_speed}"))))

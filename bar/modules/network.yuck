@@ -1,0 +1,5 @@
+(defpoll wifi :interval "5s" "~/.config/eww/bar/scripts/wifi.sh")
+
+(defwidget network []
+  (box :class "module network"
+    (label :text " ${wifi}")))

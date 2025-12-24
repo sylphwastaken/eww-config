@@ -1,0 +1,2 @@
+;; Main configuration file
+(include "./bar/bar.yuck")

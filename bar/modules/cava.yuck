@@ -1,0 +1,6 @@
+(deflisten cava :initial "" 
+  "cava -p ~/.config/eww/bar/scripts/cava.conf")
+
+(defwidget cava []
+  (box :class "module cava"
+    (label :text "${cava}")))

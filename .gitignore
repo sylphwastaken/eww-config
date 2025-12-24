@@ -1,0 +1,7 @@
+# EWW logs and cache
+*.log
+.cache/
+
+# Backup files
+*.bak
+*~

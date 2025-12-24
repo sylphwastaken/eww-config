@@ -1,0 +1,9 @@
+(defpoll ram_used :interval "2s" "~/.config/eww/bar/scripts/ram_used.sh")
+(defpoll ram_total :interval "2s" "~/.config/eww/bar/scripts/ram_total.sh")
+
+(defwidget memory []
+  (eventbox
+    :onclick "~/.config/eww/bar/scripts/open_monitor.sh ram"
+    :cursor "pointer"
+    (box :class "module memory"
+      (label :text "󰍛 ${ram_used}/${ram_total}"))))

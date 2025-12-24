@@ -1,0 +1,145 @@
+;; Variables for system monitor
+(defpoll cpu_processes :interval "2s" 
+  "~/.config/eww/bar/scripts/top_cpu.sh")
+
+(defpoll gpu_processes :interval "2s" 
+  "~/.config/eww/bar/scripts/top_gpu.sh")
+
+(defpoll ram_processes :interval "2s" 
+  "~/.config/eww/bar/scripts/top_ram.sh")
+
+(defvar expanded_cpu "")
+(defvar expanded_gpu "")
+(defvar expanded_ram "")
+
+;; CPU Monitor Window
+(defwindow cpu-monitor
+  :monitor 1
+  :geometry (geometry
+    :anchor "bottom left"
+    :x "12px"
+    :y "50px"
+    :width "550px"
+    :height "500px")
+  :stacking "overlay"
+  :windowtype "dialog"
+  (box :class "system-monitor" :orientation "v" :space-evenly false
+    (box :class "monitor-header" :spacing 8
+      (label :text "󰘚 CPU Usage" :class "monitor-title" :hexpand true :xalign 0)
+      (button :class "monitor-close" :onclick "eww close cpu-monitor" "✕"))
+    (scroll :vscroll true :height 440
+      (box :orientation "v" :spacing 4
+        (for proc in cpu_processes
+          (cpu-process-group :proc proc))))))
+
+;; GPU Monitor Window  
+(defwindow gpu-monitor
+  :monitor 1
+  :geometry (geometry
+    :anchor "bottom left"
+    :x "12px"
+    :y "50px"
+    :width "550px"
+    :height "500px")
+  :stacking "overlay"
+  :windowtype "dialog"
+  (box :class "system-monitor" :orientation "v" :space-evenly false
+    (box :class "monitor-header" :spacing 8
+      (label :text "󰢮 GPU Usage" :class "monitor-title" :hexpand true :xalign 0)
+      (button :class "monitor-close" :onclick "eww close gpu-monitor" "✕"))
+    (scroll :vscroll true :height 440
+      (box :orientation "v" :spacing 4
+        (for proc in gpu_processes
+          (gpu-process-group :proc proc))))))
+
+;; RAM Monitor Window
+(defwindow ram-monitor
+  :monitor 1
+  :geometry (geometry
+    :anchor "bottom left"
+    :x "12px"
+    :y "50px"
+    :width "550px"
+    :height "500px")
+  :stacking "overlay"
+  :windowtype "dialog"
+  (box :class "system-monitor" :orientation "v" :space-evenly false
+    (box :class "monitor-header" :spacing 8
+      (label :text "󰍛 Memory Usage" :class "monitor-title" :hexpand true :xalign 0)
+      (button :class "monitor-close" :onclick "eww close ram-monitor" "✕"))
+    (scroll :vscroll true :height 440
+      (box :orientation "v" :spacing 4
+        (for proc in ram_processes
+          (ram-process-group :proc proc))))))
+
+;; CPU Process group widget
+(defwidget cpu-process-group [proc]
+  (box :orientation "v" :spacing 2
+    (eventbox
+      :onclick "eww update expanded_cpu='${expanded_cpu == proc.name ? '' : proc.name}'"
+      :onrightclick "~/.config/eww/bar/scripts/confirm_kill.sh '${proc.name}' '${proc.pids}' &"
+      (box :class "process-row" :spacing 8
+        (label :text "${proc.count > 1 ? (expanded_cpu == proc.name ? '▼' : '▶') : ' '}" 
+               :class "process-expand" :xalign 0)
+        (label :text "${proc.name}${proc.count > 1 ? ' (' + proc.count + ')' : ''}" 
+               :class "process-name" :limit-width 30 :xalign 0 :hexpand true)
+        (label :text "${proc.total_percent}%" :class "process-percent" :xalign 1)))
+    (revealer
+      :reveal {expanded_cpu == proc.name && proc.count > 1}
+      :transition "slidedown"
+      (box :orientation "v" :spacing 2 :class "process-children"
+        (for child in {proc.children ?: []}
+          (eventbox
+            :onrightclick "~/.config/eww/bar/scripts/confirm_kill.sh 'PID ${child.pid}' '${child.pid}' &"
+            (box :class "process-row process-child" :spacing 8
+              (label :text "  └─" :class "process-tree" :xalign 0)
+              (label :text "PID ${child.pid}" :class "process-name" :limit-width 25 :xalign 0 :hexpand true)
+              (label :text "${child.percent}%" :class "process-percent" :xalign 1))))))))
+
+;; GPU Process group widget
+(defwidget gpu-process-group [proc]
+  (box :orientation "v" :spacing 2
+    (eventbox
+      :onclick "eww update expanded_gpu='${expanded_gpu == proc.name ? '' : proc.name}'"
+      :onrightclick "~/.config/eww/bar/scripts/confirm_kill.sh '${proc.name}' '${proc.pids}' &"
+      (box :class "process-row" :spacing 8
+        (label :text "${proc.count > 1 ? (expanded_gpu == proc.name ? '▼' : '▶') : ' '}" 
+               :class "process-expand" :xalign 0)
+        (label :text "${proc.name}${proc.count > 1 ? ' (' + proc.count + ')' : ''}" 
+               :class "process-name" :limit-width 30 :xalign 0 :hexpand true)
+        (label :text "${proc.total_percent}%" :class "process-percent" :xalign 1)))
+    (revealer
+      :reveal {expanded_gpu == proc.name && proc.count > 1}
+      :transition "slidedown"
+      (box :orientation "v" :spacing 2 :class "process-children"
+        (for child in {proc.children ?: []}
+          (eventbox
+            :onrightclick "~/.config/eww/bar/scripts/confirm_kill.sh 'PID ${child.pid}' '${child.pid}' &"
+            (box :class "process-row process-child" :spacing 8
+              (label :text "  └─" :class "process-tree" :xalign 0)
+              (label :text "PID ${child.pid}" :class "process-name" :limit-width 25 :xalign 0 :hexpand true)
+              (label :text "${child.percent}%" :class "process-percent" :xalign 1))))))))
+
+;; RAM Process group widget
+(defwidget ram-process-group [proc]
+  (box :orientation "v" :spacing 2
+    (eventbox
+      :onclick "eww update expanded_ram='${expanded_ram == proc.name ? '' : proc.name}'"
+      :onrightclick "~/.config/eww/bar/scripts/confirm_kill.sh '${proc.name}' '${proc.pids}' &"
+      (box :class "process-row" :spacing 8
+        (label :text "${proc.count > 1 ? (expanded_ram == proc.name ? '▼' : '▶') : ' '}" 
+               :class "process-expand" :xalign 0)
+        (label :text "${proc.name}${proc.count > 1 ? ' (' + proc.count + ')' : ''}" 
+               :class "process-name" :limit-width 30 :xalign 0 :hexpand true)
+        (label :text "${proc.total_percent}%" :class "process-percent" :xalign 1)))
+    (revealer
+      :reveal {expanded_ram == proc.name && proc.count > 1}
+      :transition "slidedown"
+      (box :orientation "v" :spacing 2 :class "process-children"
+        (for child in {proc.children ?: []}
+          (eventbox
+            :onrightclick "~/.config/eww/bar/scripts/confirm_kill.sh 'PID ${child.pid}' '${child.pid}' &"
+            (box :class "process-row process-child" :spacing 8
+              (label :text "  └─" :class "process-tree" :xalign 0)
+              (label :text "PID ${child.pid}" :class "process-name" :limit-width 25 :xalign 0 :hexpand true)
+              (label :text "${child.percent}%" :class "process-percent" :xalign 1))))))))

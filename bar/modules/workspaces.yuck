@@ -1,0 +1,27 @@
+(deflisten workspaces
+  :initial "[{\"id\":1,\"pair\":1},{\"id\":2,\"pair\":1},{\"id\":3,\"pair\":2},{\"id\":4,\"pair\":2},{\"id\":5,\"pair\":3},{\"id\":6,\"pair\":3}]"
+  "~/.config/eww/bar/scripts/workspaces.sh")
+
+(deflisten active_workspace
+  :initial "1"
+  "~/.config/eww/bar/scripts/active_workspace.sh")
+
+(defwidget workspaces []
+  (box :class "module workspaces"
+       :spacing 4
+    (for ws in workspaces
+      (box :spacing 2
+        :visible {ws.id % 2 == 1}
+        (button 
+          :class "workspace-pair ${ws.id == active_workspace || ws.id + 1 == active_workspace ? 'active' : ''}"
+          :onclick "~/.config/eww/bar/scripts/switch_workspace_pair.sh ${ws.id}"
+          "${ws.id}&${ws.id + 1}")))
+    (button 
+      :class "workspace-add"
+      :onclick "~/.config/eww/bar/scripts/add_workspace.sh"
+      "+")
+    (button 
+      :class "workspace-remove"
+      :onclick "~/.config/eww/bar/scripts/remove_workspace.sh"
+      :visible {jq(workspaces, 'length') > 6}
+      "-")))

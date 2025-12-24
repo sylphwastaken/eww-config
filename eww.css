@@ -1,0 +1,404 @@
+* {
+  all: unset;
+  font-family: "JetBrainsMono Nerd Font", monospace;
+  font-size: 15.4px;
+}
+
+.bar {
+  background-color: #1e1e2e;
+  padding: 8px 14px;
+}
+
+.bar-left,
+.bar-center,
+.bar-right {
+  min-width: 0;
+}
+
+.module {
+  background-color: #313244;
+  color: #cdd6f4;
+  padding: 5px 11px;
+  border-radius: 9px;
+  min-width: 0;
+}
+
+.module:hover {
+  background-color: #45475a;
+}
+
+.workspaces {
+  padding: 3px 7px;
+}
+
+.workspace-pair {
+  background-color: #45475a;
+  color: #bac2de;
+  padding: 5px 11px;
+  border-radius: 7px;
+  min-width: 0;
+  margin: 0 2px;
+}
+
+.workspace-pair:hover {
+  background-color: #585b70;
+}
+
+.workspace-pair.active {
+  background-color: #89b4fa;
+  color: #1e1e2e;
+  font-weight: bold;
+}
+
+.workspace-add {
+  background-color: #45475a;
+  color: #89b4fa;
+  padding: 5px 9px;
+  border-radius: 7px;
+  min-width: 0;
+  margin-left: 4px;
+}
+
+.workspace-add:hover {
+  background-color: #89b4fa;
+  color: #1e1e2e;
+}
+
+.workspace-remove {
+  background-color: #45475a;
+  color: #f38ba8;
+  padding: 5px 9px;
+  border-radius: 7px;
+  min-width: 0;
+  margin-left: 2px;
+}
+
+.workspace-remove:hover {
+  background-color: #f38ba8;
+  color: #1e1e2e;
+}
+
+/* System Monitor */
+.system-monitor {
+  background-color: #1e1e2e;
+  border: 2px solid #313244;
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.monitor-header {
+  padding: 8px 12px;
+  background-color: #313244;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.monitor-title {
+  font-size: 17.6px;
+  font-weight: bold;
+  color: #cdd6f4;
+}
+
+.monitor-close {
+  background-color: #f38ba8;
+  color: #1e1e2e;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.monitor-close:hover {
+  background-color: #eba0ac;
+}
+
+.process-row {
+  background-color: #313244;
+  padding: 9px 13px;
+  border-radius: 7px;
+  margin: 2px 0;
+}
+
+.process-row:hover {
+  background-color: #45475a;
+}
+
+.process-name {
+  color: #cdd6f4;
+  font-size: 14.3px;
+}
+
+.process-percent {
+  color: #89b4fa;
+  font-weight: bold;
+  min-width: 55px;
+}
+
+.process-value {
+  color: #a6e3a1;
+  min-width: 66px;
+}
+
+.process-expand {
+  color: #89b4fa;
+  font-size: 13.2px;
+  min-width: 17px;
+}
+
+.process-children {
+  margin-left: 11px;
+}
+
+.process-child {
+  background-color: #45475a;
+  opacity: 0.9;
+}
+
+.process-tree {
+  color: #6c7086;
+  font-size: 13.2px;
+}
+
+/* Power Menu */
+.power-menu {
+  background-color: #1e1e2e;
+  border: 2px solid #313244;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.power-header {
+  padding: 8px 12px;
+  background-color: #313244;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.power-title {
+  font-size: 19.8px;
+  font-weight: bold;
+  color: #cdd6f4;
+}
+
+.power-close {
+  background-color: #f38ba8;
+  color: #1e1e2e;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.power-close:hover {
+  background-color: #eba0ac;
+}
+
+.power-content {
+  padding: 8px;
+}
+
+.power-left {
+  border-right: 1px solid #313244;
+  padding-right: 16px;
+}
+
+.power-subtitle {
+  font-size: 14.3px;
+  color: #a6adc8;
+  margin-bottom: 4px;
+}
+
+.power-btn {
+  background-color: #313244;
+  padding: 13px 18px;
+  border-radius: 55px;
+  border: 2px solid transparent;
+  margin: 2px 0;
+  min-width: 198px;
+}
+
+.power-btn:hover {
+  border-color: #45475a;
+}
+
+.power-btn.logout:hover {
+  background-color: #f9e2af;
+  color: #1e1e2e;
+  border-color: #f9e2af;
+}
+
+.power-btn.shutdown:hover {
+  background-color: #f38ba8;
+  color: #1e1e2e;
+  border-color: #f38ba8;
+}
+
+.power-btn.reboot:hover {
+  background-color: #fab387;
+  color: #1e1e2e;
+  border-color: #fab387;
+}
+
+.power-btn-icon {
+  font-size: 19.8px;
+  color: #89b4fa;
+}
+
+.power-right {
+  padding-left: 16px;
+}
+
+.directory-title {
+  font-size: 15.4px;
+  font-weight: bold;
+  color: #cdd6f4;
+  margin-bottom: 6px;
+}
+
+.directory-list {
+  background-color: #313244;
+  padding: 13px;
+  border-radius: 8px;
+}
+
+.directory-item {
+  background-color: transparent;
+  color: #bac2de;
+  padding: 7px 9px;
+  border-radius: 4px;
+  font-size: 14.3px;
+}
+
+.directory-item:hover {
+  background-color: #45475a;
+  color: #cdd6f4;
+}
+
+/* Audio Controls */
+.audio-container {
+  min-width: 0;
+}
+
+.audio-levels {
+  padding: 5px 11px;
+}
+
+.cava-box {
+  padding: 5px 13px;
+  background-color: #313244;
+  min-width: 132px;
+}
+
+.cava-text {
+  color: #89b4fa;
+  font-size: 17.6px;
+  letter-spacing: 2px;
+  font-family: monospace;
+}
+
+/* Clean Audio Controls */
+.audio-main {
+  background-color: #1e1e2e;
+  border: 2px solid #313244;
+  border-radius: 12px;
+  padding: 0;
+}
+
+.audio-close-btn {
+  background-color: #f38ba8;
+  color: #1e1e2e;
+  padding: 10px;
+  border-radius: 10px 10px 0 0;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.audio-close-btn:hover {
+  background-color: #eba0ac;
+}
+
+.sliders-section {
+  padding: 16px;
+  background-color: #1e1e2e;
+}
+
+.main-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #cdd6f4;
+  margin-bottom: 10px;
+}
+
+.slider-item {
+  background-color: #313244;
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.slider-icon {
+  font-size: 20px;
+  color: #89b4fa;
+  min-width: 25px;
+}
+
+.slider-label {
+  font-size: 13px;
+  color: #bac2de;
+}
+
+.audio-scale {
+  min-height: 6px;
+}
+
+.audio-scale trough {
+  background-color: #45475a;
+  border-radius: 10px;
+  min-height: 6px;
+}
+
+.audio-scale highlight {
+  background-color: #89b4fa;
+  border-radius: 10px;
+}
+
+.slider-value {
+  font-size: 14px;
+  color: #cdd6f4;
+  font-weight: bold;
+  min-width: 45px;
+}
+
+.devices-section {
+  padding: 12px 16px;
+}
+
+.device-section-title {
+  font-size: 14px;
+  font-weight: bold;
+  color: #cdd6f4;
+  margin-bottom: 6px;
+}
+
+.device-container {
+  background-color: #313244;
+  padding: 6px;
+  border-radius: 8px;
+}
+
+.device-btn {
+  background-color: transparent;
+  color: #bac2de;
+  padding: 5px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  margin: 1px 0;
+}
+
+.device-btn:hover {
+  background-color: #45475a;
+}
+
+.device-btn.active {
+  background-color: #89b4fa;
+  color: #1e1e2e;
+  font-weight: bold;
+}

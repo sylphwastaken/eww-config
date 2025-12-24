@@ -1,0 +1,79 @@
+;; Audio controls popup
+(defpoll audio_sinks :initial "[]" :interval "2s" 
+  "~/.config/eww/bar/scripts/audio_sinks.sh")
+
+(defpoll audio_sources :initial "[]" :interval "2s" 
+  "~/.config/eww/bar/scripts/audio_sources.sh")
+
+(defpoll volume_val :interval "1s" 
+  "~/.config/eww/bar/scripts/volume.sh")
+
+(defpoll mic_val :interval "1s" 
+  "~/.config/eww/bar/scripts/mic.sh")
+
+(defpoll default_sink_name :interval "2s"
+  "wpctl inspect @DEFAULT_AUDIO_SINK@ 2>/dev/null | grep 'node.description' | sed 's/.*= //' | tr -d '\"'")
+
+(defpoll default_source_name :interval "2s"
+  "wpctl inspect @DEFAULT_AUDIO_SOURCE@ 2>/dev/null | grep 'node.description' | sed 's/.*= //' | tr -d '\"'")
+
+(defwindow audio-controls
+  :monitor 1
+  :geometry (geometry
+    :anchor "bottom center"
+    :x "0px"
+    :y "0px"
+    :width "400px"
+    :height "450px")
+  :stacking "overlay"
+  :windowtype "dialog"
+  (box :class "audio-main" :orientation "v" :space-evenly false
+    (button :class "audio-close-btn" :onclick "eww close audio-controls" "✕")
+    
+    ;; Volume sliders section
+    (box :class "sliders-section" :orientation "v"
+      (label :text "Volume" :class "main-title" :xalign 0)
+      
+      (box :class "slider-item" :spacing 10
+        (label :text "" :class "slider-icon")
+        (box :orientation "v" :hexpand true :spacing 2
+          (label :text "${default_sink_name}" :class "slider-label" :xalign 0 :limit-width 28)
+          (scale :class "audio-scale"
+                 :value volume_val
+                 :min 0
+                 :max 100
+                 :round-digits 0
+                 :onchange "wpctl set-volume @DEFAULT_AUDIO_SINK@ {}%"))
+        (label :text "${volume_val}%" :class "slider-value"))
+      
+      (box :class "slider-item" :spacing 10
+        (label :text "" :class "slider-icon")
+        (box :orientation "v" :hexpand true :spacing 2
+          (label :text "${default_source_name}" :class "slider-label" :xalign 0 :limit-width 28)
+          (scale :class "audio-scale"
+                 :value mic_val
+                 :min 0
+                 :max 100
+                 :round-digits 0
+                 :onchange "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ {}%"))
+        (label :text "${mic_val}%" :class "slider-value")))
+    
+    ;; Playback devices
+    (box :class "devices-section" :orientation "v"
+      (label :text "Playback Device" :class "device-section-title" :xalign 0)
+      (scroll :vscroll true :height 100
+        (box :class "device-container" :orientation "v"
+          (for sink in audio_sinks
+            (button :class "device-btn ${sink.active == 'true' ? 'active' : ''}"
+                    :onclick "wpctl set-default ${sink.id}"
+              (label :text "- ${sink.name}" :xalign 0 :limit-width 35))))))
+    
+    ;; Input devices
+    (box :class "devices-section" :orientation "v"
+      (label :text "Input Device" :class "device-section-title" :xalign 0)
+      (scroll :vscroll true :height 100
+        (box :class "device-container" :orientation "v"
+          (for source in audio_sources
+            (button :class "device-btn ${source.active == 'true' ? 'active' : ''}"
+                    :onclick "wpctl set-default ${source.id}"
+              (label :text "- ${source.name}" :xalign 0 :limit-width 35))))))))
