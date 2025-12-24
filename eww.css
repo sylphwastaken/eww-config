@@ -411,7 +411,7 @@
   background-color: #313244;
   padding: 2px 10px;
   border-radius: 7px;
-  margin: 0px;
+  margin: 1px 0;
 }
 
 .process-row:hover {
