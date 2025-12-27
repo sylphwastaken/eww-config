@@ -1,6 +1,6 @@
-(defpoll weather :interval "600s" "~/.config/eww/bar/scripts/weather.sh")
+(defpoll weather :interval "600s" :initial "{\"temp\":\"--\",\"condition\":\"\",\"icon\":\"\"}"
+  "~/.config/eww/bar/scripts/weather.sh")
 
 (defwidget weather []
-  (box :class "module weather" :spacing 4
-    (label :text "${weather.icon}" :class "weather-icon")
-    (label :text "${weather.temp}")))
+  (box :class "module weather"
+    (label :text "${weather.icon} ${weather.temp}")))

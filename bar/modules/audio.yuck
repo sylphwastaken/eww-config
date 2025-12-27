@@ -4,10 +4,13 @@
 
 (defwidget audio []
   (box :class "audio-container" :spacing 8 :halign "center"
-    (eventbox :onclick "~/.config/eww/bar/scripts/open_monitor.sh audio"
+    (eventbox :onclick "eww close calendar-popup calendar-popup-closer cpu-monitor cpu-monitor-closer gpu-monitor gpu-monitor-closer ram-monitor ram-monitor-closer power-menu power-menu-closer 2>/dev/null; ~/.config/eww/bar/scripts/open_monitor.sh audio"
               :cursor "pointer"
       (box :class "module audio-levels" :spacing 8
         (label :text "󰋋 ${volume}%")
         (label :text "󰍬 ${mic}%")))
-    (box :class "module cava-box"
-      (label :text "${cava_bars}" :class "cava-text"))))
+    (eventbox 
+      :onclick "eww close calendar-popup calendar-popup-closer cpu-monitor cpu-monitor-closer gpu-monitor gpu-monitor-closer ram-monitor ram-monitor-closer power-menu power-menu-closer audio-controls audio-controls-closer 2>/dev/null; eww open music-widget-closer && eww open music-widget"
+      :cursor "pointer"
+      (box :class "module cava-box"
+        (label :text cava_bars :class "cava-text")))))

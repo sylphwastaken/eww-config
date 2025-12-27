@@ -1,0 +1,879 @@
+* {
+  all: unset;
+  font-family: "JetBrainsMono Nerd Font", monospace;
+  font-size: 15.4px;
+}
+
+.bar {
+  background-color: #1e1e2e;
+  padding: 8px 14px;
+}
+
+.bar-left,
+.bar-center,
+.bar-right {
+  min-width: 0;
+}
+
+.module {
+  background-color: #313244;
+  color: #cdd6f4;
+  padding: 5px 11px;
+  border-radius: 9px;
+  min-width: 0;
+}
+
+.module:hover {
+  background-color: #45475a;
+}
+
+.workspaces {
+  padding: 3px 7px;
+}
+
+.workspace-pair {
+  background-color: #45475a;
+  color: #bac2de;
+  padding: 5px 11px;
+  border-radius: 7px;
+  min-width: 0;
+  margin: 0 2px;
+}
+
+.workspace-pair:hover {
+  background-color: #585b70;
+}
+
+.workspace-pair.active {
+  background-color: #89b4fa;
+  color: #1e1e2e;
+  font-weight: bold;
+}
+
+.workspace-add {
+  background-color: #45475a;
+  color: #89b4fa;
+  padding: 5px 9px;
+  border-radius: 7px;
+  min-width: 0;
+  margin-left: 4px;
+}
+
+.workspace-add:hover {
+  background-color: #89b4fa;
+  color: #1e1e2e;
+}
+
+.workspace-remove {
+  background-color: #45475a;
+  color: #f38ba8;
+  padding: 5px 9px;
+  border-radius: 7px;
+  min-width: 0;
+  margin-left: 2px;
+}
+
+.workspace-remove:hover {
+  background-color: #f38ba8;
+  color: #1e1e2e;
+}
+
+/* System Monitor */
+.system-monitor {
+  background-color: #1e1e2e;
+  border: 2px solid #313244;
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.monitor-header {
+  padding: 8px 12px;
+  background-color: #313244;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.monitor-title {
+  font-size: 17.6px;
+  font-weight: bold;
+  color: #cdd6f4;
+}
+
+.process-row {
+  background-color: #313244;
+  padding: 10px 12px;
+  border-radius: 7px;
+  margin: 1px 0;
+}
+
+.process-row:hover {
+  background-color: #45475a;
+}
+
+.process-name {
+  color: #cdd6f4;
+  font-size: 14.3px;
+}
+
+.process-percent {
+  color: #89b4fa;
+  font-weight: bold;
+  min-width: 55px;
+}
+
+.process-value {
+  color: #a6e3a1;
+  min-width: 66px;
+}
+
+.process-expand {
+  color: #89b4fa;
+  font-size: 13.2px;
+  min-width: 17px;
+}
+
+.process-children {
+  margin-left: 11px;
+}
+
+.process-child {
+  background-color: #45475a;
+  opacity: 0.9;
+}
+
+.process-tree {
+  color: #6c7086;
+  font-size: 13.2px;
+}
+
+/* Power Menu */
+.power-menu {
+  background-color: #1e1e2e;
+  border: 2px solid #313244;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.power-header {
+  padding: 8px 12px;
+  background-color: #313244;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.power-title {
+  font-size: 19.8px;
+  font-weight: bold;
+  color: #cdd6f4;
+}
+
+.power-content {
+  padding: 8px;
+}
+
+.power-left {
+  border-right: 1px solid #313244;
+  padding-right: 16px;
+}
+
+.power-subtitle {
+  font-size: 14.3px;
+  color: #a6adc8;
+  margin-bottom: 4px;
+}
+
+.power-btn {
+  background-color: #313244;
+  padding: 13px 18px;
+  border-radius: 55px;
+  border: 2px solid transparent;
+  margin: 2px 0;
+  min-width: 198px;
+}
+
+.power-btn:hover {
+  border-color: #45475a;
+}
+
+.power-btn.logout:hover {
+  background-color: #f9e2af;
+  color: #1e1e2e;
+  border-color: #f9e2af;
+}
+
+.power-btn.shutdown:hover {
+  background-color: #f38ba8;
+  color: #1e1e2e;
+  border-color: #f38ba8;
+}
+
+.power-btn.reboot:hover {
+  background-color: #fab387;
+  color: #1e1e2e;
+  border-color: #fab387;
+}
+
+.power-btn-icon {
+  font-size: 19.8px;
+  color: #89b4fa;
+}
+
+.power-right {
+  padding-left: 16px;
+}
+
+.directory-title {
+  font-size: 15.4px;
+  font-weight: bold;
+  color: #cdd6f4;
+  margin-bottom: 6px;
+}
+
+.directory-list {
+  background-color: #313244;
+  padding: 13px;
+  border-radius: 8px;
+}
+
+.directory-item {
+  background-color: transparent;
+  color: #bac2de;
+  padding: 7px 9px;
+  border-radius: 4px;
+  font-size: 14.3px;
+}
+
+.directory-item:hover {
+  background-color: #45475a;
+  color: #cdd6f4;
+}
+
+/* Audio Controls */
+.audio-container {
+  min-width: 0;
+}
+
+.audio-levels {
+  padding: 5px 11px;
+}
+
+.cava-box {
+  padding: 5px 13px;
+  background-color: #313244;
+  min-width: 132px;
+}
+
+.cava-text {
+  color: #89b4fa;
+  font-size: 17.6px;
+  letter-spacing: 2px;
+  font-family: monospace;
+}
+
+.sliders-section {
+  padding: 16px;
+  background-color: #1e1e2e;
+}
+
+.main-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #cdd6f4;
+  margin-bottom: 10px;
+}
+
+.slider-item {
+  background-color: #313244;
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.slider-icon {
+  font-size: 20px;
+  color: #89b4fa;
+  min-width: 25px;
+}
+
+.slider-label {
+  font-size: 13px;
+  color: #bac2de;
+}
+
+.audio-scale {
+  min-height: 6px;
+}
+
+.audio-scale trough {
+  background-color: #45475a;
+  border-radius: 10px;
+  min-height: 6px;
+}
+
+.audio-scale highlight {
+  background-color: #89b4fa;
+  border-radius: 10px;
+}
+
+.slider-value {
+  font-size: 14px;
+  color: #cdd6f4;
+  font-weight: bold;
+  min-width: 45px;
+}
+
+.devices-section {
+  padding: 8px 0;
+}
+
+.device-section-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #f5c2e7;
+  margin-bottom: 0px;
+  padding-bottom: 4px;
+}
+
+.device-container {
+  background-color: #313244;
+  padding: 6px;
+  border-radius: 8px;
+}
+
+.device-btn {
+  background-color: #313244;
+  color: #cdd6f4;
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-size: 14px;
+  margin: 1px 0;
+}
+
+.device-btn:hover {
+  background-color: #45475a;
+}
+
+.device-btn.active {
+  background-color: #89b4fa;
+  color: #1e1e2e;
+  font-weight: bold;
+}
+
+/* Calendar Widget */
+.cal-box {
+  background-color: #1e1e2e;
+  border: 2px solid #313244;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.cal-header-box {
+  padding: 12px;
+  background-color: #313244;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.cal-time-label {
+  font-size: 24px;
+  font-weight: bold;
+  color: #cdd6f4;
+}
+
+.cal-date-label {
+  font-size: 14px;
+  color: #bac2de;
+}
+
+.cal-main-box {
+  padding: 8px;
+}
+
+.tasks-box {
+  background-color: #313244;
+  border-radius: 8px;
+  padding: 12px;
+  min-width: 200px;
+  margin-right: 12px;
+}
+
+.tasks-header-box {
+  margin-bottom: 8px;
+}
+
+.tasks-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #cdd6f4;
+}
+
+
+
+.no-tasks {
+  font-size: 13px;
+  color: #6c7086;
+}
+
+.cal-widget {
+  background-color: #313244;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+/* Music Widget */
+.music-main {
+  background-color: #1e1e2e;
+  border: 2px solid #313244;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.music-header {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #313244;
+  margin-bottom: 12px;
+}
+
+.music-header-text {
+  font-size: 16px;
+  font-weight: bold;
+  color: #cdd6f4;
+}
+
+.music-content {
+  padding: 4px 8px;
+}
+
+.player-card {
+  background-color: #313244;
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 8px;
+}
+
+.player-name {
+  font-size: 11px;
+  color: #89b4fa;
+  background-color: #1e1e2e;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.player-art-box {
+  background-color: #1e1e2e;
+  border-radius: 8px;
+  padding: 10px;
+  min-width: 100px;
+  min-height: 100px;
+}
+
+.player-art-image {
+  border-radius: 6px;
+}
+
+.player-right {
+  padding: 4px 0;
+}
+
+.player-info {
+  margin-bottom: 4px;
+}
+
+.player-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #cdd6f4;
+}
+
+.player-artist {
+  font-size: 13px;
+  color: #bac2de;
+}
+
+.player-controls {
+  padding-top: 4px;
+}
+
+.player-btn {
+  background-color: #1e1e2e;
+  color: #cdd6f4;
+  padding: 8px;
+  border-radius: 50%;
+  font-size: 18px;
+  min-width: 42px;
+  min-height: 42px;
+}
+
+.player-btn:hover {
+  background-color: #45475a;
+}
+
+.player-btn:active {
+}
+
+.player-btn-play {
+  background-color: #89b4fa;
+  color: #1e1e2e;
+  font-size: 20px;
+  min-width: 48px;
+  min-height: 48px;
+}
+
+.player-btn-play:hover {
+  background-color: #74c7ec;
+}
+
+.player-btn-play:active {
+}
+
+.player-progress-box {
+  padding-top: 8px;
+}
+
+.player-progress {
+  min-height: 6px;
+}
+
+.player-progress trough {
+  background-color: #45475a;
+  border-radius: 10px;
+  min-height: 6px;
+}
+
+.player-progress highlight {
+  background-color: #89b4fa;
+  border-radius: 10px;
+}
+
+.player-progress slider {
+  background-color: #cdd6f4;
+  border-radius: 50%;
+  min-width: 14px;
+  min-height: 14px;
+}
+
+.player-time {
+  font-size: 11px;
+  color: #6c7086;
+  padding-top: 3px;
+}
+
+.audio-header {
+  padding-bottom: 12px;
+  border-bottom: 1px solid #313244;
+  margin-bottom: 12px;
+}
+
+.audio-header-text {
+  font-size: 16px;
+  font-weight: bold;
+  color: #cdd6f4;
+}
+
+.sliders-section {
+  padding: 12px 0;
+  border-bottom: 1px solid #313244;
+}
+
+.slider-item {
+  background-color: #313244;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.slider-icon {
+  font-size: 22px;
+  color: #89b4fa;
+  min-width: 30px;
+}
+
+.slider-title {
+  font-size: 14px;
+  font-weight: bold;
+  color: #cdd6f4;
+}
+
+.audio-scale {
+  min-height: 8px;
+}
+
+.audio-scale trough {
+  background-color: #45475a;
+  border-radius: 10px;
+  min-height: 8px;
+}
+
+.audio-scale highlight {
+  background-color: #89b4fa;
+  border-radius: 10px;
+}
+
+.audio-scale slider {
+  background-color: #cdd6f4;
+  border-radius: 50%;
+  min-width: 16px;
+  min-height: 16px;
+}
+
+.slider-value {
+  font-size: 13px;
+  color: #89b4fa;
+  font-weight: bold;
+  min-width: 45px;
+}
+
+.devices-section {
+  padding: 8px 0;
+}
+
+.device-section-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #f5c2e7;
+  margin-bottom: 0px;
+  padding-bottom: 4px;
+}
+
+.device-container {
+  background-color: #313244;
+  padding: 6px;
+  border-radius: 8px;
+}
+
+.device-btn {
+  background-color: #313244;
+  color: #cdd6f4;
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-size: 14px;
+  margin: 1px 0;
+}
+
+.device-btn:hover {
+  background-color: #45475a;
+}
+
+.device-active {
+  background-color: #f5c2e7;
+  color: #1e1e2e;
+  font-weight: bold;
+}
+
+.device-active:hover {
+  background-color: #f38ba8;
+}
+
+.device-active .device-icon {
+  color: #1e1e2e;
+}
+
+.device-active:hover {
+  background-color: #74c7ec;
+}
+
+.device-indicator {
+  font-size: 16px;
+  min-width: 20px;
+}
+
+.device-active .device-indicator {
+  color: #1e1e2e;
+}
+
+/* Audio Controls Popup */
+.audio-main {
+  background-color: #1e1e2e;
+  border: 2px solid #313244;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.audio-header {
+  padding-bottom: 12px;
+  border-bottom: 1px solid #313244;
+  margin-bottom: 16px;
+}
+
+.audio-header-text {
+  font-size: 18px;
+  font-weight: bold;
+  color: #f5c2e7;
+}
+
+.sliders-section {
+  padding-bottom: 16px;
+  border-bottom: 1px solid #313244;
+  margin-bottom: 16px;
+}
+
+.device-label {
+  font-size: 14px;
+  font-weight: bold;
+  color: #cdd6f4;
+  margin-bottom: 4px;
+}
+
+.slider-icon-inline {
+  font-size: 18px;
+  color: #f5c2e7;
+  min-width: 24px;
+}
+
+.audio-scale {
+  min-height: 6px;
+}
+
+.audio-scale trough {
+  background-color: #45475a;
+  border-radius: 10px;
+  min-height: 6px;
+}
+
+.audio-scale highlight {
+  background-color: #f5c2e7;
+  border-radius: 10px;
+}
+
+.audio-scale slider {
+  background-color: #cdd6f4;
+  border-radius: 50%;
+  min-width: 14px;
+  min-height: 14px;
+}
+
+.slider-value {
+  font-size: 13px;
+  color: #f5c2e7;
+  font-weight: bold;
+  min-width: 42px;
+}
+
+.devices-section {
+  padding: 8px 0;
+}
+
+.device-section-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #f5c2e7;
+  margin-bottom: 0px;
+  padding-bottom: 4px;
+}
+
+.device-list {
+  background-color: #313244;
+  padding: 6px;
+  border-radius: 8px;
+}
+
+.device-btn {
+  background-color: #313244;
+  color: #cdd6f4;
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-size: 14px;
+  margin: 1px 0;
+}
+
+.device-btn:hover {
+  background-color: #45475a;
+}
+
+.device-active {
+  background-color: #f5c2e7;
+  color: #1e1e2e;
+  font-weight: bold;
+}
+
+.device-active:hover {
+  background-color: #f38ba8;
+}
+
+.device-active .device-icon {
+  color: #1e1e2e;
+}
+
+.device-icon {
+  font-size: 18px;
+  color: #f5c2e7;
+  min-width: 24px;
+}
+
+.devices-section:last-child {
+  border-bottom: none;
+}
+
+.devices-section scroll {
+  margin-top: 0px;
+  padding-top: 0px;
+}
+
+.device-container {
+  margin: 0;
+  padding: 0;
+}
+
+.device-btn:first-child {
+  border-radius: 6px;
+}
+
+.device-btn:last-child {
+  border-radius: 6px;
+}
+
+/* Calendar fixes */
+.cal-header-box {
+  padding: 12px;
+  background-color: #313244;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.tasks-header-box {
+  padding-bottom: 6px;
+  border-bottom: 1px solid #313244;
+}
+
+
+
+.cal-widget {
+  padding: 8px;
+}
+
+.cal-widget calendar:selected {
+  background-color: #89b4fa;
+  color: #1e1e2e;
+  font-weight: bold;
+}
+
+.cal-widget calendar.highlight {
+  background-color: #89b4fa;
+  color: #1e1e2e;
+}
+
+
+calendar.header {
+  background-color: #313244;
+  color: #bac2de;
+}
+
+calendar:indeterminate {
+  background-color: transparent;
+  color: #6c7086;
+}
+
+.tasks-add-btn {
+  background-color: #89b4fa;
+  color: #1e1e2e;
+  padding: 1px 4px;
+  border-radius: 3px;
+  font-size: 13px;
+  font-weight: bold;
+  min-width: 16px;
+  min-height: 16px;
+}
+
+.tasks-add-btn:hover {
+  background-color: #74c7ec;
+}

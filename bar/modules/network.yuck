@@ -1,7 +1,8 @@
-(defpoll network :interval "2s" "~/.config/eww/bar/scripts/network.sh")
+(defpoll network :interval "5s" :initial "{\"type\":\"loading\",\"name\":\"...\",\"down\":\"0\",\"up\":\"0\",\"icon\":\"\"}"
+  "~/.config/eww/bar/scripts/network.sh")
 
 (defwidget network []
-  (box :class "module network" :spacing 4
-    (label :text "${network.icon}" :class "network-icon")
-    (label :text "↓ ${network.down}")
-    (label :text "↑ ${network.up}")))
+  (box :class "module network" :spacing 8
+    (label :text "${network.icon} ${network.name}")
+    (label :text "󰇚 ${network.down}")
+    (label :text "󰕒 ${network.up}")))

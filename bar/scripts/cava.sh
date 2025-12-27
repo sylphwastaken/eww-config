@@ -2,7 +2,7 @@
 
 cava -p <(cat <<CONF
 [general]
-framerate = 30
+framerate = 60
 bars = 12
 
 [input]
@@ -15,10 +15,10 @@ data_format = ascii
 ascii_max_range = 7
 
 [smoothing]
-integral = 77
+integral = 50
 monstercat = 1
 waves = 0
-gravity = 100
+gravity = 150
 CONF
 ) 2>/dev/null | while IFS= read -r line; do
     bars=""

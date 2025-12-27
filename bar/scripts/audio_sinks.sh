@@ -1,35 +1,44 @@
 #!/bin/bash
-default_sink=$(wpctl inspect @DEFAULT_AUDIO_SINK@ 2>/dev/null | grep "id:" | awk '{print $2}' | tr -d ',')
 
-result=$(wpctl status | grep -A 20 "Sinks:" | grep -v "Monitors:" | grep -E "^\s+[│├└]*\s*[0-9]+" | while read line; do
-    # Skip if line contains [vol: or other monitor indicators
-    if echo "$line" | grep -q "\[vol:"; then
-        continue
-    fi
+wpctl status | awk '
+/Sinks:/ {in_sinks=1; next}
+/Sources:/ {in_sinks=0}
+in_sinks && /[0-9]+\./ {
+    # Check if line has asterisk
+    has_asterisk = ($0 ~ /\*/)
     
-    id=$(echo "$line" | grep -oP '\d+' | head -1)
-    full_line=$(echo "$line" | sed 's/^.*\. //')
+    # Remove box drawing characters and asterisk
+    line = $0
+    gsub(/[│├└─]/, "", line)
+    gsub(/\*/, "", line)
+    gsub(/^\s+/, "", line)
     
-    # Only include devices that don't have "Monitor" in the name and are available (no asterisk means unavailable)
-    if echo "$full_line" | grep -iq "monitor"; then
-        continue
-    fi
+    # Now line should be like: "60. iD4 Headphones / Monitor [vol: 0.99]"
+    # Extract ID (number before the dot)
+    match(line, /^[0-9]+/)
+    id = substr(line, RSTART, RLENGTH)
     
-    name=$(echo "$full_line" | sed 's/ \[.*$//' | xargs)
+    # Remove the ID and dot
+    sub(/^[0-9]+\.\s*/, "", line)
     
-    if [ -n "$id" ] && [ -n "$name" ]; then
-        if [ "$id" = "$default_sink" ]; then
-            active="true"
-        else
-            active="false"
-        fi
-        
-        echo "{\"id\":\"$id\",\"name\":\"$name\",\"active\":$active}"
-    fi
-done | jq -s '.')
-
-if [ -z "$result" ] || [ "$result" = "null" ]; then
-    echo "[]"
-else
-    echo "$result"
-fi
+    # Remove everything from [ onwards (volume info)
+    sub(/\s*\[.*$/, "", line)
+    
+    # Now line should be just the name
+    name = line
+    
+    # Set active status
+    if (has_asterisk) {
+        active = "true"
+    } else {
+        active = "false"
+    }
+    
+    # Escape quotes
+    gsub(/"/, "\\\"", name)
+    
+    if (id != "" && name != "") {
+        print "{\"id\":\"" id "\",\"name\":\"" name "\",\"active\":" active "}"
+    }
+}
+' | jq -s '.'

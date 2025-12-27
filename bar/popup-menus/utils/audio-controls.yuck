@@ -23,57 +23,62 @@
     :anchor "bottom center"
     :x "0px"
     :y "0px"
-    :width "400px"
-    :height "450px")
+    :width "450px"
+    :height "480px")
   :stacking "overlay"
   :windowtype "dialog"
   (box :class "audio-main" :orientation "v" :space-evenly false
-    (button :class "audio-close-btn" :onclick "eww close audio-controls" "✕")
+    (box :class "audio-header"
+      (label :text "Volume" :class "audio-header-text" :xalign 0 :hexpand true))
     
-    ;; Volume sliders section
-    (box :class "sliders-section" :orientation "v"
-      (label :text "Volume" :class "main-title" :xalign 0)
-      
-      (box :class "slider-item" :spacing 10
-        (label :text "" :class "slider-icon")
-        (box :orientation "v" :hexpand true :spacing 2
-          (label :text "${default_sink_name}" :class "slider-label" :xalign 0 :limit-width 28)
+    ;; Volume sliders
+    (box :class "sliders-section" :orientation "v" :spacing 12
+      (box :orientation "v" :spacing 4
+        (label :text "${default_sink_name}" :class "device-label" :xalign 0 :limit-width 45)
+        (box :spacing 8
+          (label :text "󰋋" :class "slider-icon-inline")
           (scale :class "audio-scale"
                  :value volume_val
                  :min 0
                  :max 100
                  :round-digits 0
-                 :onchange "wpctl set-volume @DEFAULT_AUDIO_SINK@ {}%"))
-        (label :text "${volume_val}%" :class "slider-value"))
+                 :hexpand true
+                 :onchange "wpctl set-volume @DEFAULT_AUDIO_SINK@ {}%")
+          (label :text "${volume_val}%" :class "slider-value")))
       
-      (box :class "slider-item" :spacing 10
-        (label :text "" :class "slider-icon")
-        (box :orientation "v" :hexpand true :spacing 2
-          (label :text "${default_source_name}" :class "slider-label" :xalign 0 :limit-width 28)
+      (box :orientation "v" :spacing 4
+        (label :text "${default_source_name}" :class "device-label" :xalign 0 :limit-width 45)
+        (box :spacing 8
+          (label :text "󰍬" :class "slider-icon-inline")
           (scale :class "audio-scale"
                  :value mic_val
                  :min 0
                  :max 100
                  :round-digits 0
-                 :onchange "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ {}%"))
-        (label :text "${mic_val}%" :class "slider-value")))
+                 :hexpand true
+                 :onchange "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ {}%")
+          (label :text "${mic_val}%" :class "slider-value"))))
     
-    ;; Playback devices
-    (box :class "devices-section" :orientation "v"
+    ;; Playback devices - NO spacing!
+    (box :class "devices-section" :orientation "v" :spacing 0 :space-evenly false
       (label :text "Playback Device" :class "device-section-title" :xalign 0)
       (scroll :vscroll true :height 100
-        (box :class "device-container" :orientation "v"
+        (box :class "device-list" :orientation "v" :spacing 0 :space-evenly false
           (for sink in audio_sinks
-            (button :class "device-btn ${sink.active == 'true' ? 'active' : ''}"
+            (button :class "device-btn ${sink.active == 'true' ? 'device-active' : ''}"
                     :onclick "wpctl set-default ${sink.id}"
-              (label :text "- ${sink.name}" :xalign 0 :limit-width 35))))))
+              (box :spacing 6
+                (label :text "󰓃" :class "device-icon")
+                (label :text "${sink.name}" :xalign 0 :limit-width 42 :hexpand true)))))))
     
-    ;; Input devices
-    (box :class "devices-section" :orientation "v"
+    ;; Input devices - NO spacing!
+    (box :class "devices-section" :orientation "v" :spacing 0 :space-evenly false
       (label :text "Input Device" :class "device-section-title" :xalign 0)
       (scroll :vscroll true :height 100
-        (box :class "device-container" :orientation "v"
+        (box :class "device-list" :orientation "v" :spacing 0 :space-evenly false
           (for source in audio_sources
-            (button :class "device-btn ${source.active == 'true' ? 'active' : ''}"
+            (button :class "device-btn ${source.active == 'true' ? 'device-active' : ''}"
                     :onclick "wpctl set-default ${source.id}"
-              (label :text "- ${source.name}" :xalign 0 :limit-width 35))))))))
+              (box :spacing 6
+                (label :text "󰍬" :class "device-icon")
+                (label :text "${source.name}" :xalign 0 :limit-width 42 :hexpand true)))))))))

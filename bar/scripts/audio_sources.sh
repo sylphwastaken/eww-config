@@ -1,30 +1,53 @@
 #!/bin/bash
-default_source=$(wpctl inspect @DEFAULT_AUDIO_SOURCE@ 2>/dev/null | grep "id:" | awk '{print $2}' | tr -d ',')
 
-result=$(wpctl status | grep -A 40 "Sources:" | grep -v "Monitors:" | grep -E "^\s+[│├└]*\s*[0-9]+" | while read line; do
-    id=$(echo "$line" | grep -oP '\d+' | head -1)
-    full_line=$(echo "$line" | sed 's/^.*\. //')
-    
-    # Only include actual input devices, skip monitors
-    if echo "$full_line" | grep -iq "monitor"; then
-        continue
-    fi
-    
-    name=$(echo "$full_line" | sed 's/ \[.*$//' | xargs)
-    
-    if [ -n "$id" ] && [ -n "$name" ]; then
-        if [ "$id" = "$default_source" ]; then
-            active="true"
-        else
-            active="false"
-        fi
-        
-        echo "{\"id\":\"$id\",\"name\":\"$name\",\"active\":$active}"
-    fi
-done | jq -s '.')
+wpctl status | awk '
+BEGIN {in_sources=0; in_filters=0}
 
-if [ -z "$result" ] || [ "$result" = "null" ]; then
-    echo "[]"
-else
-    echo "$result"
-fi
+/Sources:/ {in_sources=1; in_filters=0; next}
+/Filters:/ {in_sources=0; in_filters=1; next}
+/Streams:/ {in_sources=0; in_filters=0}
+
+# Regular sources section
+in_sources && /^\s+[\*│├└─\s]*[0-9]+\./ {
+    has_asterisk = ($0 ~ /\*/)
+    
+    line = $0
+    gsub(/[│├└─\*]/, "", line)
+    gsub(/^\s+/, "", line)
+    
+    match(line, /^[0-9]+/)
+    id = substr(line, RSTART, RLENGTH)
+    
+    sub(/^[0-9]+\.\s*/, "", line)
+    sub(/\s*\[.*$/, "", line)
+    name = line
+    
+    if (has_asterisk) active = "true"
+    else active = "false"
+    
+    gsub(/"/, "\\\"", name)
+    if (name != "") print "{\"id\":\"" id "\",\"name\":\"" name "\",\"active\":" active "}"
+}
+
+# Filters section - only [Audio/Source] items
+in_filters && /Audio\/Source/ && !/split/ {
+    has_asterisk = ($0 ~ /\*/)
+    
+    line = $0
+    gsub(/[│├└─\*]/, "", line)
+    gsub(/^\s+/, "", line)
+    
+    match(line, /^[0-9]+/)
+    id = substr(line, RSTART, RLENGTH)
+    
+    sub(/^[0-9]+\.\s*/, "", line)
+    sub(/\s*\[.*$/, "", line)
+    name = line
+    
+    if (has_asterisk) active = "true"
+    else active = "false"
+    
+    gsub(/"/, "\\\"", name)
+    if (name != "") print "{\"id\":\"" id "\",\"name\":\"" name "\",\"active\":" active "}"
+}
+' | jq -s '.'

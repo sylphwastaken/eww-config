@@ -11,8 +11,7 @@
   :windowtype "dialog"
   (box :class "power-menu" :orientation "v" :space-evenly false
     (box :class "power-header" :spacing 8
-      (label :text "Hello, ioan" :class "power-title" :hexpand true :xalign 0)
-      (button :class "power-close" :onclick "eww close power-menu" "✕"))
+      (label :text "Hello, ioan" :class "power-title" :hexpand true :xalign 0))
     
     (box :class "power-content" :spacing 12
       ;; Left side - Power options
@@ -45,3 +44,10 @@
             (label :text "- Documents" :xalign 0))
           (button :class "directory-item" :onclick "dolphin ~/Pictures &" 
             (label :text "- Pictures" :xalign 0)))))))
+
+(defwindow power-menu-closer
+  :monitor 1
+  :geometry (geometry :width "100%" :height "100%")
+  :stacking "fg"
+  :focusable false
+  (closer :window "power-menu"))

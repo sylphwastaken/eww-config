@@ -2,5 +2,8 @@
 (defpoll date :interval "1m" "date '+%a %b %d'")
 
 (defwidget clock []
-  (box :class "module clock"
-    (label :text "${date} · ${time}")))
+  (eventbox
+    :onclick "eww close audio-controls audio-controls-closer cpu-monitor cpu-monitor-closer gpu-monitor gpu-monitor-closer ram-monitor ram-monitor-closer power-menu power-menu-closer 2>/dev/null; eww open calendar-popup-closer && eww open calendar-popup"
+    :cursor "pointer"
+    (box :class "module clock"
+      (label :text "${date} · ${time}"))))

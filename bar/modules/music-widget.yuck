@@ -1,0 +1,76 @@
+(defpoll all_players :interval "1s" :initial "[]"
+  "~/.config/eww/bar/scripts/get_all_players.sh")
+
+(defwindow music-widget
+  :monitor 1
+  :geometry (geometry
+    :anchor "bottom center"
+    :x "0px"
+    :y "0px"
+    :width "550px"
+    :height "500px")
+  :stacking "overlay"
+  :windowtype "dialog"
+  (box :class "music-main" :orientation "v" :space-evenly false
+    (box :class "music-header"
+      (label :text "󰎆 Media Players" :class "music-header-text" :xalign 0 :hexpand true))
+    
+    (scroll :vscroll true :height 440
+      (box :class "music-content" :orientation "v" :spacing 12
+        (for player in all_players
+          (player-card :pname "${player.player}"
+                       :title "${player.title}"
+                       :artist "${player.artist}"
+                       :status "${player.status}"
+                       :pos "${player.position}"
+                       :len "${player.length}"
+                       :art "${player.art}"
+                       :pos_disp "${player.pos_display}"
+                       :len_disp "${player.len_display}"))))))
+
+(defwidget player-card [pname title artist status pos len art pos_disp len_disp]
+  (box :class "player-card" :orientation "v" :space-evenly false :spacing 10
+    ;; Player name badge
+    (label :text pname :class "player-name" :xalign 0)
+    
+    ;; Album art and info side by side
+    (box :spacing 12
+      ;; Album art
+      (box :class "player-art-box"
+        (image :path {art != "" ? art : ""} 
+               :class "player-art-image"
+               :image-width 100
+               :image-height 100))
+      
+      ;; Track info and controls
+      (box :class "player-right" :orientation "v" :spacing 8 :hexpand true
+        ;; Track info
+        (box :class "player-info" :orientation "v" :spacing 2
+          (label :text title :class "player-title" :limit-width 40 :xalign 0)
+          (label :text artist :class "player-artist" :limit-width 40 :xalign 0))
+        
+        ;; Controls
+        (box :class "player-controls" :spacing 10 :halign "start"
+          (button :class "player-btn" :onclick "playerctl -p ${pname} previous" "󰒮")
+          (button :class "player-btn player-btn-play" 
+                  :onclick "playerctl -p ${pname} play-pause" 
+                  "${status == 'Playing' ? '󰏤' : '󰐊'}")
+          (button :class "player-btn" :onclick "playerctl -p ${pname} next" "󰒭"))))
+    
+    ;; Progress bar
+    (box :class "player-progress-box" :orientation "v" :spacing 4
+      (scale :class "player-progress"
+             :value pos
+             :min 0
+             :max len
+             :onchange "playerctl -p ${pname} position {}")
+      (box :class "player-time"
+        (label :text pos_disp :xalign 0)
+        (label :text len_disp :xalign 1 :hexpand true)))))
+
+(defwindow music-widget-closer
+  :monitor 1
+  :geometry (geometry :width "100%" :height "100%")
+  :stacking "fg"
+  :focusable false
+  (closer :window "music-widget"))

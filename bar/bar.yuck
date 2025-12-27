@@ -10,6 +10,8 @@
 (include "./bar/modules/weather.yuck")
 (include "./bar/modules/clock.yuck")
 (include "./bar/modules/notifications.yuck")
+(include "./bar/modules/calendar-widget.yuck")
+(include "./bar/modules/music-widget.yuck")
 
 ;; Include popups
 (include "./bar/popup-menus/system/system-monitor.yuck")
@@ -25,6 +27,7 @@
     :width "100%"
     :height "50px")
   :exclusive true
+  :reserve (struts :distance 50 :side "bottom")
   (bar-content))
 
 (defvar barrev true)
