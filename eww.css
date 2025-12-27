@@ -483,8 +483,10 @@
   border-radius: 3px;
   font-size: 14px;
   font-weight: bold;
-  min-width: 20px;
-  min-height: 20px;
+  min-width: 24px;
+  
+  min-height: 24px;
+  
 }
 
 .tasks-add-btn:hover {
@@ -655,4 +657,58 @@ calendar:indeterminate {
   font-size: 11px;
   color: @overlay0;
   padding-top: 3px;
+}
+
+/* Fixed tasks add button */
+
+/* Analog clock styles */
+.analog-clock {
+  min-width: 70px;
+  min-height: 70px;
+}
+
+.clock-face {
+  background-color: #313244;
+  border: 2px solid #45475a;
+  border-radius: 4px;
+  min-width: 70px;
+  min-height: 70px;
+}
+
+.clock-hand-container {
+  min-width: 70px;
+  min-height: 70px;
+}
+
+.clock-hand {
+  background-color: #cdd6f4;
+  margin-left: 33px;
+  margin-bottom: 35px;
+}
+
+.hour-hand {
+  min-width: 3px;
+  min-height: 20px;
+  background-color: #cdd6f4;
+  border-radius: 2px;
+}
+
+.minute-hand {
+  min-width: 2px;
+  min-height: 28px;
+  background-color: #bac2de;
+  border-radius: 1px;
+}
+
+.second-hand {
+  min-width: 1px;
+  min-height: 30px;
+  background-color: #f38ba8;
+}
+
+.clock-center {
+  background-color: #89b4fa;
+  min-width: 6px;
+  min-height: 6px;
+  border-radius: 50%;
 }
