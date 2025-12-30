@@ -8,6 +8,8 @@ eww close power-menu power-menu-closer 2>/dev/null
 eww close audio-controls audio-controls-closer 2>/dev/null
 eww close calendar-popup calendar-popup-closer 2>/dev/null
 eww close music-widget music-widget-closer 2>/dev/null
+eww close weather-popup weather-popup-closer 2>/dev/null
+eww close bluetooth-popup bluetooth-popup-closer 2>/dev/null
 
 # Open closer FIRST (background), then popup (foreground)
 case $1 in
@@ -30,5 +32,13 @@ case $1 in
     audio)
         eww open audio-controls-closer
         eww open audio-controls
+        ;;
+    weather)
+        eww open weather-popup-closer
+        eww open weather-popup
+        ;;
+    bluetooth)
+        eww open bluetooth-popup-closer
+        eww open bluetooth-popup
         ;;
 esac

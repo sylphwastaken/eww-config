@@ -1,3 +1,6 @@
+window {
+  background-color: rgba(0,0,0,0);
+}
 /* ===== COLOR PALETTE (GRUVBOX DARK) ===== */
 
 @define-color base #282828;           /* bg0 */
@@ -265,7 +268,7 @@
 }
 
 .directory-item {
-  background-color: transparent;
+  background-color: rgba(0,0,0,0);
   color: @subtext1;
   padding: 7px 9px;
   border-radius: 4px;
@@ -283,15 +286,7 @@
   min-width: 0;
 }
 
-.audio-levels {
-  padding: 5px 11px;
-}
 
-.cava-box {
-  padding: 5px 13px;
-  background-color: @surface0;
-  min-width: 132px;
-}
 
 .cava-text {
   color: @accent;
@@ -460,8 +455,7 @@
 .tasks-box {
   background-color: @surface0;
   border-radius: 8px;
-  padding: 12px;
-  min-width: 200px;
+  padding: 8px 12px;
   margin-right: 12px;
 }
 
@@ -479,14 +473,10 @@
 .tasks-add-btn {
   background-color: @accent;
   color: @base;
-  padding: 0px;
+  padding: 2px 8px;
   border-radius: 3px;
   font-size: 14px;
   font-weight: bold;
-  min-width: 24px;
-  
-  min-height: 24px;
-  
 }
 
 .tasks-add-btn:hover {
@@ -521,7 +511,7 @@ calendar.header {
 }
 
 calendar:indeterminate {
-  background-color: transparent;
+  background-color: rgba(0,0,0,0);
   color: @overlay0;
 }
 
@@ -711,4 +701,488 @@ calendar:indeterminate {
   min-width: 6px;
   min-height: 6px;
   border-radius: 50%;
+}
+
+
+/* ===== WEATHER POPUP ===== */
+
+.weather-popup {
+  background-color: @base;
+  border: 2px solid @surface0;
+  border-radius: 12px;
+  padding: 14px;
+  min-height: 380px;
+}
+
+.weather-header {
+  padding-bottom: 12px;
+  border-bottom: 1px solid @surface0;
+  margin-bottom: 12px;
+}
+
+.weather-city {
+  font-size: 20px;
+  font-weight: bold;
+  color: @text;
+}
+
+.weather-desc {
+  font-size: 14px;
+  color: @subtext1;
+}
+
+.weather-icon-large {
+  font-size: 36px;
+}
+
+.weather-temp-large {
+  font-size: 36px;
+  font-weight: bold;
+  color: @text;
+}
+
+.weather-highlow {
+  padding-bottom: 12px;
+}
+
+.weather-high {
+  font-size: 14px;
+  color: @peach;
+  font-weight: bold;
+}
+
+.weather-low {
+  font-size: 14px;
+  color: @accent;
+  font-weight: bold;
+}
+
+.weather-details {
+  background-color: @surface0;
+  border-radius: 8px;
+  padding: 8px;
+  margin-bottom: 8px;
+}
+
+.weather-detail-item {
+  padding: 4px;
+}
+
+.weather-detail-icon {
+  font-size: 20px;
+  color: @accent;
+}
+
+.weather-detail-label {
+  font-size: 11px;
+  color: @subtext1;
+}
+
+.weather-detail-value {
+  font-size: 14px;
+  font-weight: bold;
+  color: @text;
+}
+
+.weather-forecast-section {
+  background-color: @surface0;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.weather-forecast-title {
+  font-size: 14px;
+  font-weight: bold;
+  color: @text;
+  padding-bottom: 4px;
+  border-bottom: 1px solid @surface1;
+  margin-bottom: 4px;
+}
+
+.weather-forecast {
+  padding: 4px 0;
+}
+
+.weather-hour {
+  background-color: @base;
+  border-radius: 6px;
+  padding: 6px 4px;
+}
+
+.weather-hour-time {
+  font-size: 10px;
+  color: @subtext1;
+}
+
+.weather-hour-icon {
+  font-size: 16px;
+}
+
+.weather-hour-temp {
+  font-size: 13px;
+  font-weight: bold;
+  color: @text;
+}
+
+/* Make popup windows transparent */
+
+/* ===== BLUETOOTH POPUP ===== */
+
+.bluetooth-popup {
+  background-color: @base;
+  border: 2px solid @surface0;
+  border-radius: 12px;
+  padding: 14px;
+}
+
+.bluetooth-header {
+  padding-bottom: 12px;
+  border-bottom: 1px solid @surface0;
+  margin-bottom: 12px;
+}
+
+.bluetooth-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: @accent;
+}
+
+.bluetooth-toggle {
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.bt-on {
+  background-color: @accent;
+  color: @base;
+}
+
+.bt-on:hover {
+  background-color: @accent_hover;
+}
+
+.bt-off {
+  background-color: @surface1;
+  color: @subtext1;
+}
+
+.bt-off:hover {
+  background-color: @surface2;
+}
+
+.bluetooth-actions {
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid @surface0;
+}
+
+.bluetooth-action-btn {
+  background-color: @surface0;
+  color: @text;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.bluetooth-action-btn:hover {
+  background-color: @surface1;
+}
+
+.bluetooth-devices-section {
+  padding: 0;
+}
+
+.bluetooth-section-title {
+  font-size: 14px;
+  font-weight: bold;
+  color: @subtext1;
+  padding-bottom: 8px;
+}
+
+.bluetooth-device-list {
+  padding: 4px;
+}
+
+.bluetooth-device {
+  background-color: @surface0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin: 2px 0;
+}
+
+.bluetooth-device:hover {
+  background-color: @surface1;
+}
+
+.bt-connected {
+  border-left: 3px solid @accent;
+}
+
+.bluetooth-device-icon {
+  font-size: 18px;
+  color: @accent;
+}
+
+.bluetooth-device-name {
+  font-size: 14px;
+  color: @text;
+}
+
+.bluetooth-connect-btn {
+  background-color: @surface1;
+  color: @text;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+.bluetooth-connect-btn:hover {
+  background-color: @surface2;
+}
+
+.bluetooth-connect-btn.connected {
+  background-color: @red;
+  color: @base;
+}
+
+.bluetooth-connect-btn.connected:hover {
+  background-color: @peach;
+}
+
+/* Bluetooth scanning state */
+.bluetooth-action-btn.scanning {
+  background-color: @accent;
+  color: @base;
+}
+
+.bluetooth-no-devices {
+  color: @subtext1;
+  font-size: 13px;
+  padding: 20px;
+}
+
+.bluetooth-scanning-status {
+  background-color: @surface0;
+  padding: 12px;
+  border-radius: 8px;
+  margin: 4px 0;
+}
+
+.bluetooth-scanning-text {
+  color: @accent;
+  font-size: 14px;
+}
+
+/* ===== MODULE-SPECIFIC COLORS ===== */
+
+/* CPU - Yellow */
+.cpu {
+  border-left: 3px solid @yellow;
+}
+
+.cpu:hover {
+  background-color: alpha(@yellow, 0.2);
+}
+
+/* GPU - Green */
+.gpu {
+  border-left: 3px solid @green;
+}
+
+.gpu:hover {
+  background-color: alpha(@green, 0.2);
+}
+
+/* Memory - Purple */
+.memory {
+  border-left: 3px solid @accent2;
+}
+
+.memory:hover {
+  background-color: alpha(@accent2, 0.2);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.cava-text {
+  color: @green;
+}
+
+/* ===== MONITOR POPUP COLORS ===== */
+
+/* CPU Monitor */
+
+/* Override process colors per monitor type */
+
+/* CPU Monitor styling */
+.cpu-monitor-title {
+  color: @yellow;
+}
+
+/* GPU Monitor styling */
+.gpu-monitor-title {
+  color: @green;
+}
+
+/* RAM Monitor styling */  
+.ram-monitor-title {
+  color: @accent2;
+}
+/* Monitor header colors */
+.monitor-header-cpu {
+  border-left: 4px solid @yellow;
+}
+
+.monitor-header-cpu .monitor-title {
+  color: @yellow;
+}
+
+.monitor-header-gpu {
+  border-left: 4px solid @green;
+}
+
+.monitor-header-gpu .monitor-title {
+  color: @green;
+}
+
+.monitor-header-ram {
+  border-left: 4px solid @accent2;
+}
+
+.monitor-header-ram .monitor-title {
+  color: @accent2;
+}
+
+/* Process percent colors per type */
+.cpu-percent {
+  color: @yellow;
+}
+
+.gpu-percent {
+  color: @green;
+}
+
+.ram-percent {
+  color: @accent2;
+}
+
+/* ===== AUDIO POPUP - GREEN THEME ===== */
+.audio-header-text {
+  color: @green;
+}
+
+.slider-icon-inline {
+  color: @green;
+}
+
+.audio-scale highlight {
+  background-color: @green;
+}
+
+.slider-value {
+  color: @green;
+}
+
+.device-section-title {
+  color: @green;
+}
+
+.device-active {
+  background-color: @green;
+  color: @base;
+}
+
+.device-active:hover {
+  background-color: @accent_hover;
+}
+
+.device-icon {
+  color: @green;
+}
+
+/* ===== CALENDAR - RED THEME ===== */
+.cal-time-label {
+  color: @red;
+}
+
+.cal-widget calendar:selected {
+  background-color: @red;
+  color: @base;
+}
+
+/* ===== TASKS - YELLOW THEME ===== */
+.tasks-title {
+  color: @yellow;
+}
+
+.tasks-add-btn {
+  background-color: @yellow;
+  color: @base;
+}
+
+.tasks-add-btn:hover {
+  background-color: @peach;
+}
+
+/* Cava stays green */
+.cava-text {
+  color: @green;
+}
+
+/* ===== WEATHER POPUP COLORS ===== */
+.weather-city {
+  color: @yellow;
+}
+
+.weather-temp-large {
+  color: @peach;
+  font-size: 42px;
+}
+
+.weather-icon-large {
+  font-size: 48px;
+}
+
+.weather-high {
+  color: @red;
+}
+
+.weather-low {
+  color: @accent;
+}
+
+.weather-detail-icon {
+  font-size: 28px;
+  color: @yellow;
+}
+
+.weather-detail-value {
+  color: @green;
+}
+
+.weather-forecast-title {
+  color: @peach;
+}
+
+.weather-hour-icon {
+  font-size: 24px;
+}
+
+.weather-hour-temp {
+  color: @yellow;
+}
+
+.weather-hour-time {
+  color: @subtext1;
 }

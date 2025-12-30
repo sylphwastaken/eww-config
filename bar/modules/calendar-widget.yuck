@@ -5,32 +5,9 @@
 (defpoll cal_year :interval "60s"
   "date +'%Y'")
 (defpoll cal_month :interval "60s"
-  "date +'%m'")
+  "echo $(($(date +'%m') - 1))")
 (defpoll cal_day :interval "60s"
-  "date +'%d'")
-
-(deflisten clock_hands :initial "{\"hour\":0,\"minute\":0,\"second\":0}"
-  "~/.config/eww/bar/scripts/clock_hands.sh")
-
-(defwidget analog-clock []
-  (box :class "analog-clock" :width 70 :height 70
-    (overlay
-      ;; Clock face
-      (box :class "clock-face" :width 70 :height 70)
-      ;; Hour hand
-      (box :class "clock-hand-container" :width 70 :height 70
-           :style "transform: rotate(${clock_hands.hour}deg);"
-        (box :class "clock-hand hour-hand" :valign "center" :halign "center"))
-      ;; Minute hand
-      (box :class "clock-hand-container" :width 70 :height 70
-           :style "transform: rotate(${clock_hands.minute}deg);"
-        (box :class "clock-hand minute-hand" :valign "center" :halign "center"))
-      ;; Second hand
-      (box :class "clock-hand-container" :width 70 :height 70
-           :style "transform: rotate(${clock_hands.second}deg);"
-        (box :class "clock-hand second-hand" :valign "center" :halign "center"))
-      ;; Center dot
-      (box :class "clock-center" :valign "center" :halign "center"))))
+  "date +'%-d'")
 
 (defwindow calendar-popup
   :monitor 1
@@ -46,24 +23,27 @@
     (box :class "cal-header-box" :spacing 12
       (box :orientation "v" :hexpand true :spacing 2
         (label :text "${current_time}" :class "cal-time-label" :xalign 0)
-        (label :text "${current_date}" :class "cal-date-label" :xalign 0))
-      (analog-clock))
+        (label :text "${current_date}" :class "cal-date-label" :xalign 0)))
     
-    (box :class "cal-main-box" :spacing 12
-      (box :class "tasks-box" :orientation "v" :spacing 8 :hexpand false
-        (box :class "tasks-header-box" :spacing 8
+    (box :class "cal-main-box" :spacing 12 :valign "start" :space-evenly true
+      (box :class "tasks-box" :orientation "v" :spacing 0 :space-evenly false :valign "start" :hexpand true
+        (box :class "tasks-header-box" :spacing 8 :space-evenly false
           (label :text "Tasks" :class "tasks-title" :xalign 0 :hexpand true)
-          (button :class "tasks-add-btn" :width 28 :height 28 :onclick "notify-send 'Add Task' 'Coming soon'" "+"))
+          (box :halign "end" :valign "center" :hexpand false
+            (button :class "tasks-add-btn" 
+                    :onclick "notify-send 'Add Task' 'Coming soon'" 
+                    "+")))
         (label :text "No tasks for the day" :class "no-tasks" :xalign 0))
       
-      (calendar :class "cal-widget"
-                :day cal_day
-                :month cal_month
-                :year cal_year
-                :show-heading true
-                :show-day-names true
-                :show-details false
-                :show-week-numbers false))))
+      (box :hexpand true
+        (calendar :class "cal-widget"
+                  :day cal_day
+                  :month cal_month
+                  :year cal_year
+                  :show-heading true
+                  :show-day-names true
+                  :show-details false
+                  :show-week-numbers false)))))
 
 (defwindow calendar-popup-closer
   :monitor 1

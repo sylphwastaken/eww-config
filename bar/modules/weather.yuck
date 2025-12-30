@@ -2,5 +2,8 @@
   "~/.config/eww/bar/scripts/weather.sh")
 
 (defwidget weather []
-  (box :class "module weather"
-    (label :text "${weather.icon} ${weather.temp}")))
+  (eventbox
+    :onclick "~/.config/eww/bar/scripts/open_monitor.sh weather"
+    :cursor "pointer"
+    (box :class "module weather"
+      (label :text "${weather.icon} ${weather.temp}"))))

@@ -24,7 +24,7 @@
   :stacking "overlay"
   :windowtype "dialog"
   (box :class "system-monitor" :orientation "v" :space-evenly false
-    (box :class "monitor-header" :spacing 8
+    (box :class "monitor-header monitor-header-cpu" :spacing 8
       (label :text "󰘚 CPU Usage" :class "monitor-title" :hexpand true :xalign 0))
     (scroll :vscroll true :height 440
       (box :orientation "v" :spacing 0 :space-evenly false
@@ -43,7 +43,7 @@
   :stacking "overlay"
   :windowtype "dialog"
   (box :class "system-monitor" :orientation "v" :space-evenly false
-    (box :class "monitor-header" :spacing 8
+    (box :class "monitor-header monitor-header-gpu" :spacing 8
       (label :text "󰢮 GPU Usage" :class "monitor-title" :hexpand true :xalign 0))
     (scroll :vscroll true :height 440
       (box :orientation "v" :spacing 0 :space-evenly false
@@ -62,7 +62,7 @@
   :stacking "overlay"
   :windowtype "dialog"
   (box :class "system-monitor" :orientation "v" :space-evenly false
-    (box :class "monitor-header" :spacing 8
+    (box :class "monitor-header monitor-header-ram" :spacing 8
       (label :text "󰍛 Memory Usage" :class "monitor-title" :hexpand true :xalign 0))
     (scroll :vscroll true :height 440
       (box :orientation "v" :spacing 0 :space-evenly false
@@ -80,7 +80,7 @@
                :class "process-expand" :xalign 0)
         (label :text "${proc.name}${proc.count > 1 ? ' (' + proc.count + ')' : ''}" 
                :class "process-name" :limit-width 30 :xalign 0 :hexpand true)
-        (label :text "${proc.total_percent}%" :class "process-percent" :xalign 1)))
+        (label :text "${proc.total_percent}%" :class "process-percent cpu-percent" :xalign 1)))
     (revealer
       :reveal {expanded_cpu == proc.name && proc.count > 1}
       :transition "slidedown"
@@ -91,7 +91,7 @@
             (box :class "process-row process-child" :spacing 8
               (label :text "  └─" :class "process-tree" :xalign 0)
               (label :text "PID ${child.pid}" :class "process-name" :limit-width 25 :xalign 0 :hexpand true)
-              (label :text "${child.percent}%" :class "process-percent" :xalign 1))))))))
+              (label :text "${child.percent}%" :class "process-percent cpu-percent" :xalign 1))))))))
 
 ;; GPU Process group widget
 (defwidget gpu-process-group [proc]
@@ -104,7 +104,7 @@
                :class "process-expand" :xalign 0)
         (label :text "${proc.name}${proc.count > 1 ? ' (' + proc.count + ')' : ''}" 
                :class "process-name" :limit-width 30 :xalign 0 :hexpand true)
-        (label :text "${proc.total_percent}%" :class "process-percent" :xalign 1)))
+        (label :text "${proc.total_percent}%" :class "process-percent gpu-percent" :xalign 1)))
     (revealer
       :reveal {expanded_gpu == proc.name && proc.count > 1}
       :transition "slidedown"
@@ -115,7 +115,7 @@
             (box :class "process-row process-child" :spacing 8
               (label :text "  └─" :class "process-tree" :xalign 0)
               (label :text "PID ${child.pid}" :class "process-name" :limit-width 25 :xalign 0 :hexpand true)
-              (label :text "${child.percent}%" :class "process-percent" :xalign 1))))))))
+              (label :text "${child.percent}%" :class "process-percent gpu-percent" :xalign 1))))))))
 
 ;; RAM Process group widget
 (defwidget ram-process-group [proc]
@@ -128,7 +128,7 @@
                :class "process-expand" :xalign 0)
         (label :text "${proc.name}${proc.count > 1 ? ' (' + proc.count + ')' : ''}" 
                :class "process-name" :limit-width 30 :xalign 0 :hexpand true)
-        (label :text "${proc.total_percent}%" :class "process-percent" :xalign 1)))
+        (label :text "${proc.total_percent}%" :class "process-percent ram-percent" :xalign 1)))
     (revealer
       :reveal {expanded_ram == proc.name && proc.count > 1}
       :transition "slidedown"
@@ -139,7 +139,7 @@
             (box :class "process-row process-child" :spacing 8
               (label :text "  └─" :class "process-tree" :xalign 0)
               (label :text "PID ${child.pid}" :class "process-name" :limit-width 25 :xalign 0 :hexpand true)
-              (label :text "${child.percent}%" :class "process-percent" :xalign 1))))))))
+              (label :text "${child.percent}%" :class "process-percent ram-percent" :xalign 1))))))))
 
 ;; Closer widget
 (defwidget closer [window]

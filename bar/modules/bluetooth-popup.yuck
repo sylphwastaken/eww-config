@@ -1,0 +1,64 @@
+(defpoll bluetooth_data :interval "1s" :initial "{\"status\":\"off\",\"devices\":[],\"scanning\":false}"
+  "~/.config/eww/bar/scripts/bluetooth_detailed.sh")
+
+(defpoll scan_status :interval "1s" :initial "{\"scanning\":false,\"remaining\":0}"
+  "~/.config/eww/bar/scripts/bluetooth_scan_status.sh")
+
+(defwindow bluetooth-popup
+  :monitor 1
+  :geometry (geometry
+    :anchor "bottom right"
+    :x "220px"
+    :y "0px"
+    :width "350px"
+    :height "400px")
+  :stacking "overlay"
+  :windowtype "dialog"
+  (box :class "bluetooth-popup" :orientation "v" :space-evenly false
+    ;; Header
+    (box :class "bluetooth-header" :spacing 8
+      (label :text "󰂯 Bluetooth" :class "bluetooth-title" :xalign 0 :hexpand true)
+      (button :class "bluetooth-toggle ${bluetooth_data.status == 'on' ? 'bt-on' : 'bt-off'}"
+              :onclick "~/.config/eww/bar/scripts/bluetooth_toggle.sh"
+              "${bluetooth_data.status == 'on' ? 'ON' : 'OFF'}"))
+    
+    ;; Action buttons
+    (box :class "bluetooth-actions" :spacing 8 :space-evenly true
+      (button :class "bluetooth-action-btn ${scan_status.scanning ? 'scanning' : ''}"
+              :onclick "~/.config/eww/bar/scripts/bluetooth_scan.sh &"
+              (box :spacing 6
+                (label :text "󰑐")
+                (label :text "${scan_status.scanning ? 'Stop' : 'Scan'}")))
+      (button :class "bluetooth-action-btn"
+              :onclick "blueman-manager &"
+              (box :spacing 6
+                (label :text "󰒓")
+                (label :text "Settings"))))
+    
+    ;; Devices section
+    (box :class "bluetooth-devices-section" :orientation "v" :spacing 0 :space-evenly false
+      (label :text "Devices" :class "bluetooth-section-title" :xalign 0)
+      (scroll :vscroll true :height 240
+        (box :class "bluetooth-device-list" :orientation "v" :spacing 0 :space-evenly false
+          ;; Show scanning status
+          (box :visible {scan_status.scanning}
+               :class "bluetooth-scanning-status"
+            (label :text "󰑐 Scanning... (${scan_status.remaining}s)" :class "bluetooth-scanning-text"))
+          ;; Show no devices message only when not scanning and no devices
+          (box :visible {!scan_status.scanning && arraylength(bluetooth_data.devices) == 0}
+            (label :text "No devices found" :class "bluetooth-no-devices"))
+          ;; Device list
+          (for device in {bluetooth_data.devices}
+            (box :class "bluetooth-device ${device.connected ? 'bt-connected' : ''}" :spacing 8
+              (label :text "${device.connected ? '󰂱' : '󰂯'}" :class "bluetooth-device-icon")
+              (label :text "${device.name}" :class "bluetooth-device-name" :xalign 0 :hexpand true :limit-width 20)
+              (button :class "bluetooth-connect-btn ${device.connected ? 'connected' : ''}"
+                      :onclick "~/.config/eww/bar/scripts/bluetooth_connect.sh '${device.mac}'"
+                      "${device.connected ? 'Disconnect' : 'Connect'}"))))))))
+
+(defwindow bluetooth-popup-closer
+  :monitor 1
+  :geometry (geometry :width "100%" :height "100%")
+  :stacking "fg"
+  :focusable false
+  (closer :window "bluetooth-popup"))

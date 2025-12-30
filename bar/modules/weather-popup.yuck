@@ -1,0 +1,73 @@
+(defpoll weather_data :interval "300s" :initial "{\"temp\":\"--\",\"feels_like\":\"--\",\"humidity\":\"--\",\"wind\":\"--\",\"condition\":\"Unknown\",\"description\":\"--\",\"icon\":\"\",\"high\":\"--\",\"low\":\"--\",\"city\":\"Unknown\",\"sunrise\":\"--\",\"sunset\":\"--\",\"forecast\":[]}"
+  "~/.config/eww/bar/scripts/weather_detailed.sh")
+
+(defwindow weather-popup
+  :monitor 1
+  :geometry (geometry
+    :anchor "bottom right"
+    :x "100px"
+    :y "0px"
+    :width "450px"
+    :height "420px")
+  :stacking "overlay"
+  :windowtype "dialog"
+  (box :class "weather-popup" :orientation "v" :space-evenly false
+    ;; Header with city and current temp
+    (box :class "weather-header" :orientation "h" :space-evenly false :spacing 12
+      (box :orientation "v" :hexpand true :spacing 2
+        (label :text "${weather_data.city}" :class "weather-city" :xalign 0)
+        (label :text "${weather_data.description}" :class "weather-desc" :xalign 0))
+      (box :orientation "h" :spacing 8 :halign "end"
+        (label :text "${weather_data.icon}" :class "weather-icon-large")
+        (label :text "${weather_data.temp}°F" :class "weather-temp-large")))
+    
+    ;; High/Low
+    (box :class "weather-highlow" :spacing 16 :halign "start"
+      (label :text "H: ${weather_data.high}°" :class "weather-high")
+      (label :text "L: ${weather_data.low}°" :class "weather-low"))
+    
+    ;; Details grid
+    (box :class "weather-details" :orientation "v" :spacing 4
+      (box :spacing 8 :space-evenly true
+        (box :class "weather-detail-item" :orientation "v" :spacing 2
+          (label :text "󰔏" :class "weather-detail-icon")
+          (label :text "Feels Like" :class "weather-detail-label")
+          (label :text "${weather_data.feels_like}°F" :class "weather-detail-value"))
+        (box :class "weather-detail-item" :orientation "v" :spacing 2
+          (label :text "󰖎" :class "weather-detail-icon")
+          (label :text "Humidity" :class "weather-detail-label")
+          (label :text "${weather_data.humidity}%" :class "weather-detail-value"))
+        (box :class "weather-detail-item" :orientation "v" :spacing 2
+          (label :text "󰖝" :class "weather-detail-icon")
+          (label :text "Wind" :class "weather-detail-label")
+          (label :text "${weather_data.wind} mph" :class "weather-detail-value")))
+      (box :spacing 8 :space-evenly true
+        (box :class "weather-detail-item" :orientation "v" :spacing 2
+          (label :text "󰖨" :class "weather-detail-icon")
+          (label :text "Sunrise" :class "weather-detail-label")
+          (label :text "${weather_data.sunrise}" :class "weather-detail-value"))
+        (box :class "weather-detail-item" :orientation "v" :spacing 2
+          (label :text "󰖛" :class "weather-detail-icon")
+          (label :text "Sunset" :class "weather-detail-label")
+          (label :text "${weather_data.sunset}" :class "weather-detail-value"))
+        (box :class "weather-detail-item" :orientation "v" :spacing 2
+          (label :text "󰛐" :class "weather-detail-icon")
+          (label :text "Condition" :class "weather-detail-label")
+          (label :text "${weather_data.condition}" :class "weather-detail-value"))))
+    
+    ;; Hourly forecast
+    (box :class "weather-forecast-section" :orientation "v" :spacing 4 :space-evenly false
+      (label :text "Hourly Forecast" :class "weather-forecast-title" :xalign 0)
+      (box :class "weather-forecast" :spacing 6 :space-evenly true
+        (for hour in {weather_data.forecast}
+          (box :class "weather-hour" :orientation "v" :spacing 2
+            (label :text "${hour.time}" :class "weather-hour-time")
+            (label :text "${hour.icon}" :class "weather-hour-icon")
+            (label :text "${hour.temp}°" :class "weather-hour-temp")))))))
+
+(defwindow weather-popup-closer
+  :monitor 1
+  :geometry (geometry :width "100%" :height "100%")
+  :stacking "fg"
+  :focusable false
+  (closer :window "weather-popup"))

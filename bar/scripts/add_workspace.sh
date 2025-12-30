@@ -1,16 +1,23 @@
 #!/bin/bash
-# Get current mouse position
 eval $(xdotool getmouselocation --shell)
 
-max_ws=$(hyprctl workspaces -j | jq '[.[].id] | max')
-new_ws1=$((max_ws + 1))
-new_ws2=$((max_ws + 2))
+current=$(cat /tmp/eww_ws_count 2>/dev/null || echo 3)
+new_count=$((current + 1))
+echo "$new_count" > /tmp/eww_ws_count
 
-# Create and switch to new workspace pair
+# Calculate new workspace pair
+new_ws1=$(( (new_count - 1) * 2 + 1 ))
+new_ws2=$(( new_ws1 + 1 ))
+
+# Create workspace on monitor 0 (odd workspace)
+hyprctl dispatch focusmonitor 0
 hyprctl dispatch workspace $new_ws1
+
+# Create workspace on monitor 1 (even workspace)
 hyprctl dispatch focusmonitor 1
 hyprctl dispatch workspace $new_ws2
+
+# Return focus to monitor 0
 hyprctl dispatch focusmonitor 0
 
-# Restore mouse position
 xdotool mousemove $X $Y

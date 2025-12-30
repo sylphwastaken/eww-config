@@ -1,6 +1,10 @@
-(defpoll bluetooth :interval "5s" "~/.config/eww/bar/scripts/bluetooth.sh")
+(defpoll bluetooth_bar :interval "1s" 
+  "~/.config/eww/bar/scripts/bluetooth.sh")
 
 (defwidget bluetooth []
-  (box :class "module bluetooth" :spacing 4
-    (label :text "󰂯")
-    (label :text "${bluetooth}")))
+  (eventbox
+    :onclick "~/.config/eww/bar/scripts/open_monitor.sh bluetooth"
+    :cursor "pointer"
+    (box :class "module bluetooth" :spacing 4
+      (label :text "󰂯")
+      (label :text "${bluetooth_bar}"))))
